@@ -36,13 +36,72 @@ function routeReducer(state = routeInitialState, action) {
   }
 }
 
+
+/**
+ * Get rooms from static data
+ */
+
+
+import initialState from './data.js';
+
+//const initialState = fromJS(data);
+
+
+function calDay(state = initialState.calDay, action) {
+
+  switch (action.type) {
+    case 'ADD_CAL_DAY':
+      return Object.assign({}, state, {
+        calDay: state + 1
+      }).calDay
+    default:
+      return state
+  }
+
+}
+
 /**
  * Creates the main reducer with the dynamically injected ones
  */
-export default function createReducer(injectedReducers) {
-  return combineReducers({
-    route: routeReducer,
-    language: languageProviderReducer,
-    ...injectedReducers,
-  });
-}
+// export default function createReducer(injectedReducers) {
+//   return combineReducers({
+//   route: routeReducer,
+//   language: languageProviderReducer,
+//   bookedRooms,
+//   rooms,
+//   availableRooms,
+//   availableOffers,
+//   availableAmenities,
+//   currentMonth,
+//   currentYear,
+//   calDay,
+//   firstDay: (state = initialState) => state,
+//   lastDay: (state = initialState) => state,
+//   hotels: (state = initialState) => state,
+  
+
+//    ...injectedReducers,
+//   });
+// }
+
+
+
+
+export default combineReducers({
+
+
+  bookedRooms:(state = initialState.bookedRooms)=>state,
+  rooms:(state = initialState.hotels[0].rooms)=>state,
+  availableRooms:(state = initialState.availableRooms)=>state,
+  availableOffers:(state = initialState.availableOffers)=>state,
+  availableAmenities:(state = initialState.availableAmenities)=>state,
+  currentMonth:(state = initialState.currentMonth)=>state,
+  currentYear:(state = initialState.currentYear)=>state,
+  calDay,
+  firstDay: (state = initialState.firstDay) => state,
+  lastDay: (state = initialState.lastDay) => state,
+  hotels: (state = initialState) => state,
+  
+
+
+});
